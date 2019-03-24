@@ -187,4 +187,37 @@ Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT;
 ```
 
 #### Cookie中的Secure和HttpOnly标记
+标记为 Secure 的Cookie只应通过被HTTPS协议加密过的请求发送给服务端。
 
+为避免跨域脚本 (XSS) 攻击，通过JavaScript的 Document.cookie API无法访问带有 HttpOnly 标记的Cookie，它们只应该发送给服务端。如果包含服务端 Session 信息的 Cookie 不想被客户端 JavaScript 脚本调用，那么就应该为其设置 HttpOnly 标记。
+
+```http
+Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Secure; HttpOnly
+```
+
+#### Cookie的作用域
+Domain 和 Path 标识定义了Cookie的作用域：即Cookie应该发送给哪些URL。
+
+#### SameSite Cookies
+
+#### JavaScript通过Document.cookies访问Cookie
+```JavaScript
+document.cookie = "yummy_cookie=choco"; 
+document.cookie = "tasty_cookie=strawberry"; 
+console.log(document.cookie); 
+// logs "yummy_cookie=choco; tasty_cookie=strawberry"
+```
+
+### 安全
+**当机器处于不安全环境时，切记不能通过HTTP Cookie存储、传输敏感信息。**
+
+#### 会话劫持和XSS
+
+#### 跨站请求伪造CSRF
+
+### 追踪和隐私
+
+- 第三方Cookie
+- 禁止追踪Do-Not-Track
+- 欧盟Cookie指令
+- 僵尸Cookie和删不掉的Cookie
